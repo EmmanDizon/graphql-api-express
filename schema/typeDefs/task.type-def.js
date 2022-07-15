@@ -2,7 +2,7 @@ const { gql } = require("apollo-server-express");
 
 module.exports = gql`
   type Query {
-    tasks: [Task!]
+    tasks(skip: Int, limit: Int): [Task!]
     task(id: ID!): Task
   }
 
