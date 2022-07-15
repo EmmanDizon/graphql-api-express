@@ -98,3 +98,18 @@ delete task by id
             completed
         }
 }
+
+cursor pagination
+query {
+    tasks(limit: 5) {
+       taskFeed {
+           id
+           name
+           
+       }
+       pageInfo {
+           nextPageCursor
+           hasNextPage
+       }
+    }
+}

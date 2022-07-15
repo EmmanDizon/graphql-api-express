@@ -5,17 +5,37 @@ const {
   isTaskOwner,
 } = require("../../middlewares/authentication");
 const { combineResolvers } = require("graphql-resolvers");
+const { stringToBase64, base64ToString } = require("../../common/utility");
 
 module.exports = {
   Query: {
     tasks: combineResolvers(
       isAuthenticated,
-      async (_parent, { skip = 0, limit = 10 }, { loggedInUserId }) => {
-        const result = await Task.find({ user: loggedInUserId })
-          .skip(skip)
-          .limit(limit);
+      async (_parent, { cursor, limit = 10 }, { loggedInUserId }) => {
+        const query = { user: loggedInUserId };
 
-        return result;
+        if (cursor) {
+          query._id = {
+            $lt: base64ToString(cursor),
+          };
+        }
+
+        let result = await Task.find(query)
+          .sort({ _id: -1 })
+          .limit(limit + 1);
+
+        const hasNextPage = result.length > limit;
+
+        result = hasNextPage ? result.slice(0, -1) : result;
+        return {
+          taskFeed: result,
+          pageInfo: {
+            nextPageCursor: hasNextPage
+              ? stringToBase64(result[result.length - 1].id)
+              : null,
+            hasNextPage,
+          },
+        };
       }
     ),
     task: combineResolvers(

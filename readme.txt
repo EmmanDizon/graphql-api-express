@@ -3,3 +3,5 @@ npm i express apollo-server-express cors dotenv
 npm i -d nodemon
 
 npm i graphql-resolvers
+
+other term offset -> page
