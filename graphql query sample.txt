@@ -1,0 +1,100 @@
+get all task:
+    query GetAllTask{
+        tasks {
+            name
+        }
+}
+
+get task assigned by user:
+    query {
+        tasks {
+            name
+            user {
+                name
+            }
+        }
+}
+
+get task by id:
+    query getTask {
+    task(id: "1") {
+        name
+    }
+}
+
+
+create task:
+    mutation {
+    createTask(input: {
+        name: "New Task",
+        completed: false,
+    }){
+        id
+        name
+        completed
+    } 
+}
+
+signUp:
+    mutation {
+    signup(input: {
+        name: "Emman Jay Dizon",
+        email: "emman.com",
+        password: "123456"
+    }) {
+        id
+        name
+        email
+    }
+}
+
+login: 
+
+mutation {
+  login(input: {
+    email: "emmanjhay@gmail.com"
+    password: "123456"
+  }) {
+    token
+  }
+}
+
+get user together with their task:
+    query {
+        user {
+            name
+            tasks {
+            name
+            }
+        }
+}
+
+get all tasks by user and his name
+    query {
+    tasks {
+        name
+        user {
+        name
+        }
+    }
+}
+
+update task by id
+    mutation {
+        updateTask(id: "62d1686e9d93e02579a2a94a", input: {
+            completed: true,
+        }) {
+            id
+            name
+            completed
+        }
+}
+
+delete task by id
+    mutation {
+        deleteTask(id: "62d16bccd24ab86d23b8ffa0") {
+            id
+            name
+            completed
+        }
+}
