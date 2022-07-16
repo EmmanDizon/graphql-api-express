@@ -4,4 +4,5 @@ npm i -d nodemon
 
 npm i graphql-resolvers
 
-other term offset -> page
+npm i dataloader
+

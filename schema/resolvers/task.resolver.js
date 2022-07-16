@@ -91,8 +91,12 @@ module.exports = {
   },
 
   Task: {
-    user: combineResolvers(isAuthenticated, async ({ user }) => {
-      return await User.findById(user);
-    }),
+    user: combineResolvers(
+      isAuthenticated,
+      async (parent, _args, { loaders }) => {
+        const user = await loaders.user.load(parent.user.toString());
+        return user;
+      }
+    ),
   },
 };
