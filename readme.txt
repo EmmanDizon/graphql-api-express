@@ -6,3 +6,4 @@ npm i graphql-resolvers
 
 npm i dataloader
 
+npm i @graphql-tools/schema subscriptions-transport-ws

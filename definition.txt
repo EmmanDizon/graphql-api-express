@@ -1,0 +1,3 @@
+Subscription -> real-time communication between client and the server using the websocket
+Query -> fetch data
+Mutation -> Modify or create server-side data.

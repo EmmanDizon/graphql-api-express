@@ -10,6 +10,11 @@ const server = new ApolloServer({
   resolvers,
   csrfPrevention: true,
   cache: "bounded",
+  formatError: (error) => {
+    return {
+      message: error.message,
+    };
+  },
   context: async ({ req }) => {
     await verifyUser(req);
 
